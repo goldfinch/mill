@@ -1,0 +1,11 @@
+<?php
+{{ namespace }}
+use Goldfinch\Mill\Mill;
+
+class {{ class }} extends Mill
+{
+    public function factory(): array
+    {
+        return [];
+    }
+}

@@ -1,0 +1,6 @@
+---
+Name: app-{{ class }}
+After: "goldfinch/mill"
+---
+Goldfinch\Mill\Mill:
+  register:

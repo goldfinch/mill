@@ -21,9 +21,11 @@
         "php": ">=8.0",
         "silverstripe/framework": "^5.0",
         "silverstripe/admin": "^2.0",
+        "goldfinch/taz": "^1.0",
         "fakerphp/faker": "^1.23"
     },
     "autoload": {
+        "files": ["helpers.php"],
         "psr-4": {
             "Goldfinch\\Mill\\": "src/"
         }
