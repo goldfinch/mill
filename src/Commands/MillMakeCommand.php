@@ -82,30 +82,6 @@ class MillMakeCommand extends GeneratorCommand
         return $rewritten;
     }
 
-    // protected function getArguments()
-    // {
-    //     return [
-    //         [
-    //             'name',
-    //             InputArgument::REQUIRED,
-    //             'The name of the ' . strtolower($this->type),
-    //         ],
-    //         [
-    //             'natargetme',
-    //             InputArgument::REQUIRED,
-    //             'The target class of the ' . strtolower($this->type),
-    //         ],
-    //     ];
-    // }
-
-    // protected function promptForMissingArgumentsUsing()
-    // {
-    //     return [
-    //         'name' => 'What should the ' . strtolower($this->type) . ' be named?',
-    //         'target' => 'What is the target of ' . strtolower($this->type) . '? Use full namespace path to the class',
-    //     ];
-    // }
-
     public function configure(): void
     {
         $this->addArgument(
