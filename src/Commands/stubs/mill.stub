@@ -2,7 +2,7 @@
 {{ namespace }}
 use Goldfinch\Mill\Mill;
 
-class {{ class }} extends Mill
+class {{ class }}Mill extends Mill
 {
     public function factory(): array
     {

@@ -4,6 +4,8 @@ namespace Goldfinch\Mill;
 
 use Faker\Factory;
 use ReflectionClass;
+use SilverStripe\ORM\ArrayList;
+use SilverStripe\Core\Config\Config;
 use SilverStripe\Versioned\Versioned;
 use SilverStripe\Versioned\RecursivePublishable;
 
@@ -23,7 +25,13 @@ abstract class Mill
 
         $mill = 'App\Mills\\'.$reflection->getShortName().'Mill';
 
-        return new $mill($modelName);
+        $cfg = Config::inst()->get(get_class());
+
+        if (isset($cfg['millable']) && is_array($cfg['millable']) && isset($cfg['millable'][$mill])) {
+            $target = $cfg['millable'][$mill];
+
+            return new $mill($target);
+        }
     }
 
     public static function new()

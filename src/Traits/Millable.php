@@ -4,7 +4,7 @@ namespace Goldfinch\Mill\Traits;
 
 use Goldfinch\Mill\Mill;
 
-trait HasMill
+trait Millable
 {
     public static function mill($count = null)
     {
