@@ -96,4 +96,12 @@ class MillMakeCommand extends GeneratorCommand
             'What is the target of ' . strtolower($this->type) . '? Use full namespace path to the class'
        );
     }
+
+    protected function promptForMissingArgumentsUsing()
+    {
+        return [
+            'name' => 'What should the ' . strtolower($this->type) . ' be named?',
+            'target' => 'What target should the ' . strtolower($this->type) . ' be reffered to?',
+        ];
+    }
 }
