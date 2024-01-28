@@ -70,6 +70,9 @@ abstract class Mill
 
         for ($i = 1; $i <= $this->count; $i++) {
             $record = $this->dataObject::create($this->factory());
+            if ($attributes && count($attributes)) {
+                $record->update($attributes);
+            }
             $record->write();
 
             if ($record->hasExtension(RecursivePublishable::class) && $record->hasExtension(Versioned::class)) {

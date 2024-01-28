@@ -4,8 +4,11 @@ use Goldfinch\Mill\Mill;
 
 class {{ class }}Mill extends Mill
 {
+
     public function factory(): array
     {
-        return [];
+        return [
+            // 'Title' => $this->faker->words(5),
+        ];
     }
 }
