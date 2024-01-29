@@ -2,8 +2,8 @@
 
 namespace Goldfinch\Mill;
 
+use Exception;
 use Faker\Factory;
-use ReflectionClass;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\Core\Config\Config;
 use SilverStripe\Versioned\Versioned;
@@ -21,9 +21,15 @@ abstract class Mill
 
     public static function millForModel(string $modelName)
     {
-        $reflection = new ReflectionClass($modelName);
+        $cfg = Config::inst()->get(Mill::class, 'millable');
 
-        $mill = 'App\Mills\\'.$reflection->getShortName().'Mill';
+        $k = array_search($modelName, array_values($cfg));
+
+        if ($k !== false && array_keys($cfg)[$k]) {
+            $mill = array_keys($cfg)[$k];
+        } else {
+            throw new Exception('The mill for ' . $modelName . ' is not found');
+        }
 
         $cfg = Config::inst()->get(get_class());
 
