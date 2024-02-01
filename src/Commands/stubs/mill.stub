@@ -8,7 +8,7 @@ class {{ class }}Mill extends Mill
     public function factory(): array
     {
         return [
-            // 'Title' => $this->faker->words(5),
+            // 'Title' => $this->faker->catchPhrase(),
         ];
     }
 }
