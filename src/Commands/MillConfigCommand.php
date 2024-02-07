@@ -3,7 +3,6 @@
 namespace Goldfinch\Mill\Commands;
 
 use Goldfinch\Taz\Console\GeneratorCommand;
-use Symfony\Component\Console\Command\Command;
 
 #[AsCommand(name: 'vendor:mill:config')]
 class MillConfigCommand extends GeneratorCommand
@@ -19,11 +18,4 @@ class MillConfigCommand extends GeneratorCommand
     protected $stub = './stubs/config.stub';
 
     protected $extension = '.yml';
-
-    protected function execute($input, $output): int
-    {
-        parent::execute($input, $output);
-
-        return Command::SUCCESS;
-    }
 }
