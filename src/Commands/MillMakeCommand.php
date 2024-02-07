@@ -2,11 +2,9 @@
 
 namespace Goldfinch\Mill\Commands;
 
-use Symfony\Component\Finder\Finder;
 use Goldfinch\Taz\Console\GeneratorCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputArgument;
 
 #[AsCommand(name: 'make:mill')]
 class MillMakeCommand extends GeneratorCommand
@@ -25,87 +23,31 @@ class MillMakeCommand extends GeneratorCommand
 
     protected function execute($input, $output): int
     {
-        $millName = $input->getArgument('name');
-        $target = $input->getArgument('target');
+        if (parent::execute($input, $output) === false) {
+            return Command::FAILURE;
+        }
 
-        $millName = 'App\Mills\\' . $millName . $this->prefix; // TODO
+        $className = $this->askClassNameQuestion('What [class name] this mill need to be assigned to (eg: Page, App/Pages/Page)', $input, $output);
 
-        if (!$this->setMillInConfig($millName, $target)) {
-            // create config
+        // find config
+        $config = $this->findYamlConfigFileByName('app-mill');
+
+        // create new config if not exists
+        if (!$config) {
 
             $command = $this->getApplication()->find('vendor:mill:config');
+            $command->run(new ArrayInput(['name' => 'mill']), $output);
 
-            $arguments = [
-                'name' => 'mill',
-            ];
-
-            $greetInput = new ArrayInput($arguments);
-            $returnCode = $command->run($greetInput, $output);
-
-            $this->setMillInConfig($millName, $target);
+            $config = $this->findYamlConfigFileByName('app-mill');
         }
 
-        parent::execute($input, $output);
+        // update config
+        $this->updateYamlConfig(
+            $config,
+            'Goldfinch\Mill\Mill' . '.millable.' . $this->getNamespaceClass($input),
+            $className
+        );
 
         return Command::SUCCESS;
-    }
-
-    private function setMillInConfig($millName, $target)
-    {
-        $rewritten = false;
-
-        $finder = new Finder();
-        $files = $finder->in(BASE_PATH . '/app/_config')->files()->contains('Goldfinch\Mill\Mill:');
-
-        foreach ($files as $file) {
-
-            // stop after first replacement
-            if ($rewritten) {
-                break;
-            }
-
-            if (strpos($file->getContents(), 'millable') !== false) {
-
-                $ucfirst = ucfirst($millName);
-
-                $newContent = $this->addToLine(
-                    $file->getPathname(),
-                    'millable:','    '.$millName.': '.$target,
-                );
-
-                file_put_contents($file->getPathname(), $newContent);
-
-                $rewritten = true;
-            }
-        }
-
-        return $rewritten;
-    }
-
-    protected function configure(): void
-    {
-        $this
-            ->setDescription($this->description)
-            ->setHelp($this->help);
-
-        $this->addArgument(
-            'name',
-            InputArgument::REQUIRED,
-            'The target class of the ' . strtolower($this->type)
-       );
-
-       $this->addArgument(
-            'target',
-            InputArgument::REQUIRED,
-            'What is the target of ' . strtolower($this->type) . '? Use full namespace path to the class'
-       );
-    }
-
-    protected function promptForMissingArgumentsUsing()
-    {
-        return [
-            'name' => 'What should the ' . strtolower($this->type) . ' be named?',
-            'target' => 'What target should the ' . strtolower($this->type) . ' be reffered to?',
-        ];
     }
 }
