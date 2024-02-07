@@ -19,7 +19,7 @@ class MillMakeCommand extends GeneratorCommand
 
     protected $stub = './stubs/mill.stub';
 
-    protected $prefix = 'Mill';
+    protected $suffix = 'Mill';
 
     protected function execute($input, $output): int
     {
@@ -27,7 +27,7 @@ class MillMakeCommand extends GeneratorCommand
             return Command::FAILURE;
         }
 
-        $className = $this->askClassNameQuestion('What [class name] this mill need to be assigned to (eg: Page, App/Pages/Page)', $input, $output);
+        $className = $this->askClassNameQuestion('What [class name] this mill need to be assigned to? (eg: Page, App/Pages/Page)', $input, $output);
 
         // find config
         $config = $this->findYamlConfigFileByName('app-mill');
