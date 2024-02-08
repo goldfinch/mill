@@ -34,10 +34,6 @@ php taz make:mill Article
 
 >> If you haven't used [**Taz**](https://github.com/goldfinch/taz)🌪️ before, *taz* file must be presented in your root project folder `cp vendor/goldfinch/taz/taz taz`
 
-```bash
-cp vendor/goldfinch/taz/taz taz
-```
-
 #### 3. Prepare your mill
 
 Modify further the recently created mill by **Taz** and prepare suitable fake data for its fields.
