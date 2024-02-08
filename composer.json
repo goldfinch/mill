@@ -1,6 +1,6 @@
 {
     "name": "goldfinch/mill",
-    "description": "Mill, fake data generator for Silverstripe",
+    "description": "Mill is a factory component that helps you to generate fake records for Silverstripe",
     "type": "silverstripe-vendormodule",
     "keywords": [
         "silverstripe",

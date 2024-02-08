@@ -27,7 +27,7 @@ class MillMakeCommand extends GeneratorCommand
             return Command::FAILURE;
         }
 
-        $className = $this->askClassNameQuestion('What [class name] this mill need to be assigned to? (eg: Page, App\Pages\Page)', $input, $output);
+        $className = $this->askClassNameQuestion('What [class name] this mill is going to work with? (eg: Page, App\Models\Article)', $input, $output);
 
         // find config
         $config = $this->findYamlConfigFileByName('app-mill');
