@@ -35,8 +35,13 @@ class MillMakeCommand extends GeneratorCommand
         // create new config if not exists
         if (!$config) {
 
-            $command = $this->getApplication()->find('vendor:mill:config');
-            $command->run(new ArrayInput(['name' => 'mill']), $output);
+            $command = $this->getApplication()->find('make:config');
+            $command->run(new ArrayInput([
+                'name' => 'mill',
+                '--plain' => true,
+                '--after' => 'goldfinch/mill',
+                '--nameprefix' => 'app-',
+            ]), $output);
 
             $config = $this->findYamlConfigFileByName('app-mill');
         }
