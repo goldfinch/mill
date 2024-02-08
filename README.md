@@ -15,7 +15,7 @@ If you got tired of constantly adding test content and placeholders to test your
 ## Install
 
 #### 1. Install module
-```
+```bash
 composer require goldfinch/mill
 ```
 
@@ -29,10 +29,10 @@ php taz make:mill
 *example:*
 ```bash
 php taz make:mill Article
-# What [class name] this mill is going to work with? : App\Models\Article
+# What [class name] does this mill is going to work with? : App\Models\Article
 ```
 
-If you haven't used [**Taz**](https://github.com/goldfinch/taz)🌪️ before, *taz* file must be in your root project folder to be able to use the command above. Just copy it first:
+>> If you haven't used [**Taz**](https://github.com/goldfinch/taz)🌪️ before, *taz* file must be presented in your root project folder `cp vendor/goldfinch/taz/taz taz`
 
 ```bash
 cp vendor/goldfinch/taz/taz taz
@@ -75,17 +75,32 @@ Lastly, you need to add `Millable` trait to the model this mill is going to work
 ```php
 namespace App\Models;
 
+use SilverStripe\ORM\DataObject;
 use Goldfinch\Mill\Traits\Millable;
 
-class Article
+class Article extends DataObject
 {
     use Millable;
+
+    private static $db = [
+        'Title' => 'Varchar',
+        'Summary' => 'Text',
+        'Content' => 'HTMLText',
+        'Date' => 'Datetime',
+        'Publisher' => 'Varchar',
+        'Email' => 'Varchar',
+        'Phone' => 'Varchar',
+        'Address' => 'Varchar',
+        'Country' => 'Varchar',
+    ];
 
     // ..
 }
 ```
 
 ## Usage
+
+*examples:*
 
 > Generate 10 articles:
 ```php
