@@ -14,31 +14,38 @@ If you got tired of constantly adding test content and placeholders to test your
 
 ## Install
 
-#### 1. Install module
 ```bash
 composer require goldfinch/mill
 ```
 
-#### 2. Create new mill
+## Available Taz commands
 
-Use [**Taz**](https://github.com/goldfinch/taz)🌪️ to generate your Mill. It will quickly lead you through the setup and take care of it for you.
+If you haven't used [**Taz**](https://github.com/goldfinch/taz)🌪️ before, *taz* file must be presented in your root project folder `cp vendor/goldfinch/taz/taz taz`
 
+---
+
+> Create new mill
 ```bash
 php taz make:mill
 ```
-*example:*
+
+## Use Case example
+
+Let's create a new mill calling *Article* that will generate fake records for our *Article* model.
+
+#### 1. Create new mill
+
+Use [**Taz**](https://github.com/goldfinch/taz)🌪️ to generate your Mill. It will quickly lead you through the setup and take care of it for you.
+
 ```bash
 php taz make:mill Article
 # What [class name] does this mill is going to work with? : App\Models\Article
 ```
 
->> If you haven't used [**Taz**](https://github.com/goldfinch/taz)🌪️ before, *taz* file must be presented in your root project folder `cp vendor/goldfinch/taz/taz taz`
-
-#### 3. Prepare your mill
+#### 2. Prepare your mill
 
 Modify further the recently created mill by **Taz** and prepare suitable fake data for its fields.
 
-*example:*
 ```php
 namespace App\Mills;
 
@@ -63,11 +70,10 @@ class ArticleMill extends Mill
 }
 ```
 
-#### 4. Make your model millable
+#### 3. Make your model millable
 
 Lastly, you need to add `Millable` trait to the model this mill is going to work with:
 
-*example:*
 ```php
 namespace App\Models;
 
@@ -94,9 +100,9 @@ class Article extends DataObject
 }
 ```
 
-## Usage
+#### 4. Use mill
 
-*examples:*
+Now, we should be able to call mill on our Article model to generate fake records. There are several ways to do so:
 
 > Generate 10 articles:
 ```php
