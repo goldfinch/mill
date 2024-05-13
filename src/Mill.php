@@ -31,7 +31,7 @@ abstract class Mill
             throw new Exception('The mill for ' . $modelName . ' is not found');
         }
 
-        $cfg = Config::inst()->get(get_class());
+        $cfg = Config::inst()->get(__CLASS__);
 
         if (isset($cfg['millable']) && is_array($cfg['millable']) && isset($cfg['millable'][$mill])) {
             $target = $cfg['millable'][$mill];
