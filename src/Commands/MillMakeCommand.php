@@ -27,21 +27,27 @@ class MillMakeCommand extends GeneratorCommand
             return Command::FAILURE;
         }
 
-        $className = $this->askClassNameQuestion('What [class name] does this mill is going to work with? (eg: Page, App\Models\Article)', $input, $output);
+        $className = $this->askClassNameQuestion(
+            'What [class name] does this mill is going to work with? (eg: Page, App\Models\Article)',
+            $input,
+            $output
+        );
 
         // find config
         $config = $this->findYamlConfigFileByName('app-mill');
 
         // create new config if not exists
-        if (!$config) {
-
+        if (! $config) {
             $command = $this->getApplication()->find('make:config');
-            $command->run(new ArrayInput([
-                'name' => 'mill',
-                '--plain' => true,
-                '--after' => 'goldfinch/mill',
-                '--nameprefix' => 'app-',
-            ]), $output);
+            $command->run(
+                new ArrayInput([
+                    'name' => 'mill',
+                    '--plain' => true,
+                    '--after' => 'goldfinch/mill',
+                    '--nameprefix' => 'app-',
+                ]),
+                $output
+            );
 
             $config = $this->findYamlConfigFileByName('app-mill');
         }
@@ -49,7 +55,7 @@ class MillMakeCommand extends GeneratorCommand
         // update config
         $this->updateYamlConfig(
             $config,
-            'Goldfinch\Mill\Mill' . '.millable.' . $this->getNamespaceClass($input),
+            'Goldfinch\Mill\Mill'.'.millable.'.$this->getNamespaceClass($input),
             $className
         );
 

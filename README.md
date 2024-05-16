@@ -1,10 +1,9 @@
-
 # 🦅 Mill for Silverstripe
 
 [![Silverstripe Version](https://img.shields.io/badge/Silverstripe-^5.1-005ae1.svg?labelColor=white&logoColor=ffffff&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDEuMDkxIDU4LjU1NSIgZmlsbD0iIzAwNWFlMSIgeG1sbnM6dj0iaHR0cHM6Ly92ZWN0YS5pby9uYW5vIj48cGF0aCBkPSJNNTAuMDE1IDUuODU4bC0yMS4yODMgMTQuOWE2LjUgNi41IDAgMCAwIDcuNDQ4IDEwLjY1NGwyMS4yODMtMTQuOWM4LjgxMy02LjE3IDIwLjk2LTQuMDI4IDI3LjEzIDQuNzg2czQuMDI4IDIwLjk2LTQuNzg1IDI3LjEzbC02LjY5MSA0LjY3NmM1LjU0MiA5LjQxOCAxOC4wNzggNS40NTUgMjMuNzczLTQuNjU0QTMyLjQ3IDMyLjQ3IDAgMCAwIDUwLjAxNSA1Ljg2MnptMS4wNTggNDYuODI3bDIxLjI4NC0xNC45YTYuNSA2LjUgMCAxIDAtNy40NDktMTAuNjUzTDQzLjYyMyA0Mi4wMjhjLTguODEzIDYuMTctMjAuOTU5IDQuMDI5LTI3LjEyOS00Ljc4NHMtNC4wMjktMjAuOTU5IDQuNzg0LTI3LjEyOWw2LjY5MS00LjY3NkMyMi40My0zLjk3NiA5Ljg5NC0uMDEzIDQuMTk4IDEwLjA5NmEzMi40NyAzMi40NyAwIDAgMCA0Ni44NzUgNDIuNTkyeiIvPjwvc3ZnPg==)](https://packagist.org/packages/goldfinch/mill)
 [![Package Version](https://img.shields.io/packagist/v/goldfinch/mill.svg?labelColor=333&color=F8C630&label=Version)](https://packagist.org/packages/goldfinch/mill)
 [![Total Downloads](https://img.shields.io/packagist/dt/goldfinch/mill.svg?labelColor=333&color=F8C630&label=Downloads)](https://packagist.org/packages/goldfinch/mill)
-[![License](https://img.shields.io/packagist/l/goldfinch/mill.svg?labelColor=333&color=F8C630&label=License)](https://packagist.org/packages/goldfinch/mill) 
+[![License](https://img.shields.io/packagist/l/goldfinch/mill.svg?labelColor=333&color=F8C630&label=License)](https://packagist.org/packages/goldfinch/mill)
 
 **Mill** is a factory component 🏗️ that helps you to generate fake records for Silverstripe whether to test your application or handle some automation.
 
@@ -20,18 +19,19 @@ composer require goldfinch/mill
 
 ## Available Taz commands
 
-If you haven't used [**Taz**](https://github.com/goldfinch/taz)🌪️ before, *taz* file must be presented in your root project folder `cp vendor/goldfinch/taz/taz taz`
+If you haven't used [**Taz**](https://github.com/goldfinch/taz)🌪️ before, _taz_ file must be presented in your root project folder `cp vendor/goldfinch/taz/taz taz`
 
 ---
 
 > Create new mill
+
 ```bash
 php taz make:mill
 ```
 
 ## Use Case example
 
-Let's create a new mill calling *Article* that will generate fake records for our *Article* model.
+Let's create a new mill calling _Article_ that will generate fake records for our _Article_ model.
 
 #### 1. Create new mill
 
@@ -105,11 +105,13 @@ class Article extends DataObject
 Now, we should be able to call mill on our Article model to generate fake records. There are several ways to do so:
 
 > Generate 10 articles:
+
 ```php
 App\Models\Article::mill(10)->make();
 ```
 
 > Generate one article, overwriting some of its fields:
+
 ```php
 App\Models\Article::mill(1)->make([
     'Title' => 'Custom article title',
@@ -118,17 +120,21 @@ App\Models\Article::mill(1)->make([
 ```
 
 > Generate 10 articles and add random categories for each (mapping):
+
 ```php
-App\Models\Article::mill(10)->make()->each(function($item) {
-    $categories = App\Models\ArticleCategory::get()->shuffle()->limit(rand(0,4));
+App\Models\Article::mill(10)
+  ->make()
+  ->each(function ($item) {
+    $categories = App\Models\ArticleCategory::get()->shuffle()->limit(rand(0, 4));
 
     foreach ($categories as $category) {
         $item->Categories()->add($category);
     }
-});
+  });
 ```
 
 ## Recommendation
+
 This module plays nicely with harvest seeder [goldfinch/harvest](https://github.com/goldfinch/harvest)
 
 ## License

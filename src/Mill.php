@@ -4,10 +4,10 @@ namespace Goldfinch\Mill;
 
 use Exception;
 use Faker\Factory;
-use SilverStripe\ORM\ArrayList;
 use SilverStripe\Core\Config\Config;
-use SilverStripe\Versioned\Versioned;
+use SilverStripe\ORM\ArrayList;
 use SilverStripe\Versioned\RecursivePublishable;
+use SilverStripe\Versioned\Versioned;
 
 abstract class Mill
 {
@@ -28,7 +28,7 @@ abstract class Mill
         if ($k !== false && array_keys($cfg)[$k]) {
             $mill = array_keys($cfg)[$k];
         } else {
-            throw new Exception('The mill for ' . $modelName . ' is not found');
+            throw new Exception('The mill for '.$modelName.' is not found');
         }
 
         $cfg = Config::inst()->get(__CLASS__);
@@ -42,7 +42,7 @@ abstract class Mill
 
     public static function new()
     {
-        return (new static);
+        return new static();
     }
 
     public function __construct($dataObject, $count = null)
@@ -64,15 +64,22 @@ abstract class Mill
 
     protected function newInstance(array $arguments = [])
     {
-        return new static(...array_values(array_merge([
-            'dataObject' => $this->dataObject,
-            'count' => $this->count,
-        ], $arguments)));
+        return new static(
+            ...array_values(
+                array_merge(
+                    [
+                        'dataObject' => $this->dataObject,
+                        'count' => $this->count,
+                    ],
+                    $arguments
+                )
+            )
+        );
     }
 
     public function make($attributes = [], ?DataObject $parent = null)
     {
-        $list = new ArrayList;
+        $list = new ArrayList();
 
         for ($i = 1; $i <= $this->count; $i++) {
             $record = $this->dataObject::create($this->factory());

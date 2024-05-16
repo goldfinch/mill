@@ -25,7 +25,9 @@
         "fakerphp/faker": "^1.23"
     },
     "autoload": {
-        "files": ["helpers.php"],
+        "files": [
+            "helpers.php"
+        ],
         "psr-4": {
             "Goldfinch\\Mill\\": "src/"
         }
